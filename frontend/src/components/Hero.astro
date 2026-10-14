@@ -1,0 +1,156 @@
+---
+import ToolsMarquee from './ToolsMarquee.astro';
+
+const avatars = ['/anshad.jpg', '/dhanish.jpg', '/shamil.jpg'];
+
+const socials = [
+  {
+    name: 'Instagram',
+    href: 'https://www.instagram.com/ashhiq._',
+    icon: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="black" stroke="none"/></svg>`,
+  },
+  {
+    name: 'LinkedIn',
+    href: 'https://www.linkedin.com/in/mohammed-ashiq-kt',
+    icon: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="7" y1="10" x2="7" y2="17"/><circle cx="7" cy="6.7" r="0.6" fill="black" stroke="none"/><path d="M11 17v-4.5c0-1.4 1-2.5 2.5-2.5s2.5 1.1 2.5 2.5V17"/><line x1="11" y1="10" x2="11" y2="17"/></svg>`,
+  },
+  {
+    name: 'Facebook',
+    href: 'https://www.facebook.com/share/1D7KUbzUM2/?mibextid=wwXIfr',
+    icon: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M15 7.5h-1.2A1.8 1.8 0 0 0 12 9.3V21M9 12.5h6"/></svg>`,
+  },
+];
+
+const tools = [
+  { name: 'WordPress', icon: '/wordpress.webp' },
+  { name: 'Google Ads', icon: '/googleads.webp' },
+  { name: 'Meta Ads', icon: '/meta.webp' },
+  { name: 'Premiere Pro', icon: '/pr.webp' },
+  { name: 'CapCut', icon: '/capcut.webp' },
+  { name: 'After Effects', icon: '/ae.webp' },
+  { name: 'Lightroom', icon: '/lightroom.webp' },
+];
+---
+
+<section
+  class="relative text-black flex flex-col justify-between min-h-[calc(100dvh-104px)] overflow-x-hidden"
+  style="background: linear-gradient(180deg, #f5f5f3 0%, #dcdcda 50%, #c9c9c7 100%);"
+>
+  <!-- MAIN CONTENT: headline + copy -->
+  <div class="relative shrink-0 md:flex-1 md:min-h-0 max-w-[1600px] mx-auto px-6 md:px-12 pt-6 md:pt-3 grid md:grid-cols-2 gap-8 items-center w-full">
+
+    <!-- LEFT: copy -->
+    <div class="relative z-10 hero-fade-in">
+      <p class="text-[10px] sm:text-xs tracking-[0.25em] sm:tracking-[0.3em] uppercase text-black/50 mb-3 md:mb-4">
+        Freelance Digital Marketer in Kerala
+      </p>
+
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-black leading-[1.05] mb-4 md:mb-5">
+        <span class="relative inline-block">
+          Digital
+          <svg class="absolute -bottom-2 left-0 w-full" height="10" viewBox="0 0 300 10" preserveAspectRatio="none">
+            <path d="M0,5 Q75,0 150,5 T300,5" stroke="black" stroke-width="2" fill="none" />
+          </svg>
+        </span><br />
+        Growth Universe
+      </h1>
+
+      <p class="text-black/60 max-w-md mb-5 md:mb-6 text-sm md:text-base">
+        A Google certified Freelance Digital Marketer in Kerala, specialized in Social Media Marketing, with additional skills in SEO, Content Creation and Web Development.
+      </p>
+
+      <div class="flex items-center gap-4">
+        <a href="#contact" class="bg-black text-white text-xs tracking-widest uppercase px-7 md:px-8 py-3 hover:bg-black/80 transition-colors">
+          Get Started
+        </a>
+        <a href="#contact" class="text-xs tracking-widest uppercase underline underline-offset-4 hover:opacity-60 transition-opacity">
+          Contact Me
+        </a>
+      </div>
+    </div>
+
+    <!-- RIGHT: spacer for desktop grid -->
+    <div class="hidden md:block"></div>
+  </div>
+
+    <!-- trusted-by + social icons: now ABOVE the image -->
+  <div class="relative z-20 max-w-[1600px] mx-auto px-6 md:px-12 pb-2 pt-5 md:pb-3 md:pt-3 flex flex-row items-end justify-between md:justify-start gap-4 md:gap-x-16 w-full shrink-0">
+    <div>
+      <p class="text-[10px] md:text-xs uppercase tracking-widest text-black/40 mb-2 md:mb-3">Trusted by Clients</p>
+      <div class="flex items-center gap-3">
+        <div class="flex -space-x-3">
+          {avatars.map((src) => (
+            <img src={src} alt="" class="w-8 h-8 md:w-9 md:h-9 rounded-full border-2 border-[#eeeeec] object-cover" style="filter: grayscale(1);" />
+          ))}
+        </div>
+        <span class="text-lg md:text-xl font-black">20+</span>
+      </div>
+    </div>
+
+    <div class="flex items-center gap-2 md:gap-3">
+      {socials.map((s) => (
+        <a
+          href={s.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={s.name}
+          class="w-10 h-10 md:w-11 md:h-11 rounded-full border border-black/15 flex items-center justify-center shrink-0 hover:bg-black hover:border-black transition-colors group"
+        >
+          <span class="group-hover:[&_svg]:stroke-white" set:html={s.icon} />
+        </a>
+      ))}
+    </div>
+  </div>
+
+  <!-- IMAGE: last thing before the marquee, so its flat bottom sits right on the black bar -->
+  <div class="relative flex-1 min-h-[260px] md:flex-none md:min-h-0 md:absolute md:inset-x-0 md:-top-16 lg:-top-20 md:bottom-0 z-10 md:z-50 pointer-events-none hero-image-in">
+    <div class="absolute inset-0 md:relative md:inset-auto md:h-full w-full max-w-[1600px] mx-auto px-6 md:px-12">
+      <img
+        src="/hero-img.png"
+        alt="Mohammed Ashiq KT"
+        class="absolute bottom-0 left-1/2 -translate-x-1/2 h-full w-auto max-w-none object-contain object-bottom
+               md:left-auto md:translate-x-0 md:-right-2 lg:right-2 md:h-[84vh] lg:h-[80vh]"
+      />
+    </div>
+  </div>
+
+ 
+  <!-- BLACK STEP -->
+  <div class="relative z-30 h-14 md:h-16 bg-black shrink-0 marquee-step">
+    <div class="h-full flex items-center max-w-[1600px] mx-auto px-6 md:px-12">
+      <ToolsMarquee tools={tools} />
+    </div>
+  </div>
+</section>
+
+<style>
+  @keyframes fadeSlideUp {
+    from { transform: translateY(24px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+  @keyframes fadeScaleIn {
+    from { transform: scale(0.92); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+  .hero-fade-in {
+    animation: fadeSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  .hero-image-in {
+    animation: fadeScaleIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-fade-in, .hero-image-in {
+      animation: none;
+    }
+  }
+
+  /* no diagonal slope on mobile, restore it from md up */
+  .marquee-step {
+    clip-path: none;
+  }
+  @media (min-width: 768px) {
+    .marquee-step {
+      clip-path: polygon(0 0, 58% 0, 65% 100%, 0% 100%);
+    }
+  }
+</style>

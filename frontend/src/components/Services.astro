@@ -1,0 +1,69 @@
+---
+// Services section — 8 individual service cards with their own descriptions
+// Sharp edges (no border-radius), black background matching the site theme
+
+interface ServiceItem {
+  title: string;
+  description: string;
+}
+
+const services: ServiceItem[] = [
+  { title: 'SEO', description: 'Improving visibility and organic search rankings.' },
+  { title: 'Social Media Marketing', description: 'Building engagement across the platforms that matter.' },
+  { title: 'Ad Campaigns', description: 'Data-backed campaigns built to convert.' },
+  { title: 'Data Analysis', description: 'Turning raw numbers into clear, actionable insight.' },
+  { title: 'Video Production', description: 'Shooting and editing videos that tell your story.' },
+  { title: 'Photography', description: 'Visuals that capture your brand at its best.' },
+  { title: 'Content Marketing', description: 'Content that informs, engages, and converts.' },
+  { title: 'Web Development', description: 'Fast, functional websites built to perform.' },
+];
+---
+
+<section id="services" class="relative bg-black text-white overflow-hidden">
+  <div class="max-w-[1600px] mx-auto px-6 md:px-12 py-20 md:py-28">
+
+    <!-- header -->
+    <div class="services-in mb-14 md:mb-20 max-w-2xl">
+      <p class="text-xs tracking-[0.3em] uppercase text-white/50 mb-4">What I Do</p>
+      <h2 class="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight uppercase leading-[1.05] mb-6">
+        Our Services
+      </h2>
+      <p class="text-white/50 text-sm md:text-base leading-relaxed">
+        Two sides of one process — the strategy that drives growth, and the creative work
+        that brings it to life.
+      </p>
+    </div>
+
+    <!-- 8 service cards -->
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-px bg-white/10">
+      {services.map((service, i) => (
+        <div
+          class={`services-in ${i % 4 === 1 ? 'card-delay-1' : i % 4 === 2 ? 'card-delay-2' : i % 4 === 3 ? 'card-delay-3' : ''} bg-black px-7 py-10 flex flex-col hover:bg-white/[0.04] transition-colors`}
+        >
+          <span class="text-xs text-white/30 tabular-nums mb-6">{String(i + 1).padStart(2, '0')}</span>
+          <h3 class="text-lg md:text-xl font-bold mb-3">{service.title}</h3>
+          <p class="text-white/50 text-sm leading-relaxed">{service.description}</p>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<style>
+  @keyframes fadeSlideUp {
+    from { transform: translateY(24px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+  .services-in {
+    animation: fadeSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  .card-delay-1 { animation-delay: 0.1s; }
+  .card-delay-2 { animation-delay: 0.2s; }
+  .card-delay-3 { animation-delay: 0.3s; }
+  @media (prefers-reduced-motion: reduce) {
+    .services-in {
+      animation: none;
+    }
+  }
+</style>

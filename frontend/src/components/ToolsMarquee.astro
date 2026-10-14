@@ -1,0 +1,47 @@
+---
+interface Tool {
+  name: string;
+  icon?: string; // path to an svg/png/webp in /public, optional
+}
+
+interface Props {
+  tools: Tool[];
+}
+
+const { tools } = Astro.props;
+
+// duplicate the list so the CSS scroll loop is seamless
+const loopTools = [...tools, ...tools];
+---
+
+<div class="relative h-full overflow-hidden flex items-center">
+  <div class="marquee-track flex items-center gap-14 w-max">
+    {loopTools.map((tool) => (
+      <div class="flex items-center gap-3 shrink-0 text-white/70">
+        {tool.icon ? (
+          <span class="flex items-center justify-center w-9 h-9 rounded-md border-2 border-white p-1 shrink-0">
+            <img src={tool.icon} alt={tool.name} class="w-full h-full object-contain" />
+          </span>
+        ) : (
+          <span class="w-9 h-9 rounded-md border border-white/30 shrink-0"></span>
+        )}
+        <span class="text-sm md:text-base tracking-wide">{tool.name}</span>
+      </div>
+    ))}
+  </div>
+</div>
+
+<style>
+  .marquee-track {
+    animation: marqueeScroll 22s linear infinite;
+  }
+  @keyframes marqueeScroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track {
+      animation: none;
+    }
+  }
+</style>

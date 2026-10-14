@@ -1,0 +1,195 @@
+---
+// Testimonials — sharp-edged staggered carousel, matches Services section styling
+// Fixed: centering math (now correctly puts the middle item at position 0)
+// Active card uses a lighter black variant instead of white
+// Added: avatar photo, star rating, name, role
+
+interface Testimonial {
+  testimonial: string;
+  name: string;
+  role: string;
+  avatar: string; // path in /public, e.g. "/reviews/rahul.jpg"
+  rating: number; // 1-5
+}
+
+const testimonials: Testimonial[] = [
+  {
+    testimonial:
+      "Working with Ashiq the Freelance Digital Marketer in Kerala is a great experience. Working with him gives me deep understanding from planning campaigns to optimizing ads. Highly recommending him for your strong and impactful online presence",
+    name: "Anshad",
+    role: "SMM Analyst",
+    avatar: "/anshad.jpg",
+    rating: 5,
+  },
+  {
+    testimonial:
+      "An extreme satisfying Freelance Digital Marketer in Kerala. Who build my business website for me. The design is clean user focused and optimized for performance. Recommending his service with confidence and complete satisfaction",
+    name: "Danish",
+    role: "SEO Specialist",
+    avatar: "/dhanish.jpg",
+    rating: 5,
+  },
+  {
+    testimonial:
+      "The results exceeded my expectations. Creating high quality content that perfectly aligned with my brand voice and audience. His strategy improved our online visibility. Recommending the best Freelance Digital Marketer in Kerala with zero hesitation.",
+    name: "Shamil",
+    role: "Founder of KeraCrop",
+    avatar: "/shamil.jpg",
+    rating: 5,
+  },
+];
+---
+
+<section class="relative bg-black text-white overflow-hidden">
+  <div class="max-w-[1600px] mx-auto px-6 md:px-12 py-20 md:py-28">
+    <!-- header, matches Services section eyebrow/heading pattern -->
+    <div class="mb-14 md:mb-20 max-w-2xl">
+      <p class="text-xs tracking-[0.3em] uppercase text-white/50 mb-4">What Clients Say</p>
+      <h2 class="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight uppercase leading-[1.05] mb-6">
+        Client Voices
+      </h2>
+      <p class="text-white/50 text-sm md:text-base leading-relaxed">
+        Real feedback from the businesses I've worked with on strategy, content, and growth.
+      </p>
+    </div>
+
+    <div id="testimonial-stage" class="relative w-full overflow-hidden" style="height: 600px;">
+      <div id="testimonial-cards" class="absolute inset-0"></div>
+
+      <div class="absolute bottom-4 left-1/2 flex -translate-x-1/2 gap-2 z-20">
+        <button
+          id="testimonial-prev"
+          class="flex h-14 w-14 items-center justify-center border border-white/20 bg-black text-white transition-colors hover:bg-white hover:text-black"
+          aria-label="Previous testimonial"
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+        <button
+          id="testimonial-next"
+          class="flex h-14 w-14 items-center justify-center border border-white/20 bg-black text-white transition-colors hover:bg-white hover:text-black"
+          aria-label="Next testimonial"
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script define:vars={{ testimonials }}>
+  const SQRT_5000 = Math.sqrt(5000);
+  const stage = document.getElementById('testimonial-cards');
+  const prevBtn = document.getElementById('testimonial-prev');
+  const nextBtn = document.getElementById('testimonial-next');
+
+  let list = testimonials.map((t, i) => ({ ...t, id: i }));
+  let cardSize = window.matchMedia('(min-width: 640px)').matches ? 365 : 290;
+
+  function starRow(rating) {
+    let html = '';
+    for (let i = 1; i <= 5; i++) {
+      const color = i <= rating ? '#e5e5e5' : '#333333';
+      html += `<svg width="14" height="14" viewBox="0 0 24 24" fill="${color}" style="margin-right:2px"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.9-6.2 3.9 1.6-7L2 9.2l7.1-.6L12 2z"/></svg>`;
+    }
+    return html;
+  }
+
+  function render() {
+    stage.innerHTML = '';
+    const len = list.length;
+    // center index sits at Math.floor((len-1)/2) so the middle item is always position 0,
+    // regardless of whether the list length is odd or even
+    const centerOffset = Math.floor((len - 1) / 2);
+
+    list.forEach((item, index) => {
+      const position = index - centerOffset;
+      const isCenter = position === 0;
+
+      const card = document.createElement('div');
+      card.className = 'absolute left-1/2 top-1/2 cursor-pointer border p-8 flex flex-col transition-all duration-500 ease-in-out';
+      card.style.width = cardSize + 'px';
+      card.style.height = cardSize + 'px';
+      // active card: lighter black variant, not white
+      card.style.backgroundColor = isCenter ? '#161616' : '#0a0a0a';
+      card.style.color = '#e5e5e5';
+      card.style.borderColor = isCenter ? '#ffffff33' : '#2a2a2a';
+      card.style.clipPath = 'polygon(50px 0%, calc(100% - 50px) 0%, 100% 50px, 100% 100%, calc(100% - 50px) 100%, 50px 100%, 0 100%, 0 0)';
+      card.style.transform = `translate(-50%, -50%) translateX(${(cardSize / 1.5) * position}px) translateY(${isCenter ? -65 : position % 2 ? 15 : -15}px) rotate(${isCenter ? 0 : position % 2 ? 2.5 : -2.5}deg)`;
+      card.style.boxShadow = isCenter ? '0px 8px 0px 4px #2a2a2a' : '0px 0px 0px 0px transparent';
+      card.style.zIndex = isCenter ? '10' : '0';
+
+      const diagonal = document.createElement('span');
+      diagonal.className = 'absolute block origin-top-right rotate-45';
+      diagonal.style.right = '-1px';
+      diagonal.style.top = '48px';
+      diagonal.style.width = SQRT_5000 + 'px';
+      diagonal.style.height = '1px';
+      diagonal.style.backgroundColor = isCenter ? '#ffffff33' : '#2a2a2a';
+
+      const header = document.createElement('div');
+      header.className = 'flex items-center gap-3 mb-4';
+      header.innerHTML = `
+        <div class="relative w-12 h-12 overflow-hidden shrink-0" style="border:1px solid #2a2a2a">
+          <img
+            src="${item.avatar}"
+            alt="${item.name}"
+            class="w-full h-full object-cover"
+            style="filter: grayscale(1) contrast(1.1) brightness(0.9);"
+          />
+          <div class="absolute inset-0" style="background: rgba(0,0,0,0.3);"></div>
+        </div>
+        <div>
+          <p class="text-sm font-semibold text-white leading-tight">${item.name}</p>
+          <p class="text-xs text-white/50 leading-tight">${item.role}</p>
+        </div>
+      `;
+
+      const stars = document.createElement('div');
+      stars.className = 'flex items-center mb-4';
+      stars.innerHTML = starRow(item.rating);
+
+      const quote = document.createElement('p');
+      quote.className = 'text-sm sm:text-base font-medium leading-snug';
+      quote.textContent = `"${item.testimonial}"`;
+
+      card.appendChild(diagonal);
+      card.appendChild(header);
+      card.appendChild(stars);
+      card.appendChild(quote);
+      card.addEventListener('click', () => handleMove(position));
+
+      stage.appendChild(card);
+    });
+  }
+
+  function handleMove(steps) {
+    if (steps === 0) return;
+    if (steps > 0) {
+      for (let i = steps; i > 0; i--) {
+        const item = list.shift();
+        if (!item) return;
+        list.push(item);
+      }
+    } else {
+      for (let i = steps; i < 0; i++) {
+        const item = list.pop();
+        if (!item) return;
+        list.unshift(item);
+      }
+    }
+    render();
+  }
+
+  prevBtn.addEventListener('click', () => handleMove(-1));
+  nextBtn.addEventListener('click', () => handleMove(1));
+
+  window.addEventListener('resize', () => {
+    const next = window.matchMedia('(min-width: 640px)').matches ? 365 : 290;
+    if (next !== cardSize) {
+      cardSize = next;
+      render();
+    }
+  });
+
+  render();
+</script>

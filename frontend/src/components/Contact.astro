@@ -1,0 +1,201 @@
+---
+
+const WEB3FORMS_ACCESS_KEY = "YOUR_ACCESS_KEY_HERE";
+
+const email = "mhdashiqkt04@gmail.com";
+const phone = "+91 62827 84884";
+
+const socials = [
+  {
+    name: "Instagram",
+    href: "https://www.instagram.com/ashhiq._",
+    icon: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg>`,
+  },
+  {
+    name: "LinkedIn",
+    href: "https://www.linkedin.com/in/mohammed-ashiq-kt",
+    icon: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="7" y1="10" x2="7" y2="17"/><circle cx="7" cy="6.7" r="0.6" fill="currentColor" stroke="none"/><path d="M11 17v-4.5c0-1.4 1-2.5 2.5-2.5s2.5 1.1 2.5 2.5V17"/><line x1="11" y1="10" x2="11" y2="17"/></svg>`,
+  },
+  {
+    name: "Facebook",
+    href: "https://www.facebook.com/share/1D7KUbzUM2/?mibextid=wwXIfr",
+    icon: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M15 7.5h-1.2A1.8 1.8 0 0 0 12 9.3V21M9 12.5h6"/></svg>`,
+  },
+    {
+    name: "WhatsApp",
+    href: "https://wa.me/916282784884",
+    icon: `<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>`,
+  },
+];
+---
+
+<section id="contact" class="relative scroll-mt-20 bg-black text-white overflow-hidden">
+  <div class="max-w-[1600px] mx-auto px-6 md:px-12 py-20 md:py-28">
+    <div class="grid lg:grid-cols-2 gap-16 lg:gap-8">
+      <!-- left: intro -->
+      <div class="flex flex-col">
+        <div>
+          <p class="text-xs tracking-[0.3em] uppercase text-white/50 mb-4">Get In Touch</p>
+          <h2 class="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight uppercase leading-[1.05] mb-6">
+            Let's Connect
+          </h2>
+          <p class="text-white/50 text-sm md:text-base leading-relaxed max-w-md">
+            Have a project in mind or just want to talk strategy? Send a message and I'll get back to you within a day or two.
+          </p>
+        </div>
+
+        <div class="mt-10 space-y-6">
+          <a href={`mailto:${email}`} class="flex items-center gap-4 group w-fit">
+            <span class="flex h-11 w-11 items-center justify-center border border-white/20 shrink-0 transition-colors group-hover:bg-white group-hover:text-black">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="m3 6 9 7 9-7"/></svg>
+            </span>
+            <span class="text-sm md:text-base text-white/80 group-hover:text-white">{email}</span>
+          </a>
+          <a href={`tel:${phone.replace(/\s/g, '')}`} class="flex items-center gap-4 group w-fit">
+            <span class="flex h-11 w-11 items-center justify-center border border-white/20 shrink-0 transition-colors group-hover:bg-white group-hover:text-black">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .3 2 .6 2.9a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.9.5 2.9.6a2 2 0 0 1 1.8 2.1Z"/></svg>
+            </span>
+            <span class="text-sm md:text-base text-white/80 group-hover:text-white">{phone}</span>
+          </a>
+
+          <div class="flex items-center gap-3 pt-2">
+            {socials.map((s) => (
+              <a
+                href={s.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={s.name}
+                class="flex h-11 w-11 items-center justify-center border border-white/20 text-white/70 transition-colors hover:bg-white hover:text-black"
+                set:html={s.icon}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <!-- right: form -->
+      <div>
+        <form id="contact-form" class="flex flex-col gap-6">
+          <input type="hidden" name="access_key" value={WEB3FORMS_ACCESS_KEY} />
+
+          <div>
+            <label for="cf-name" class="block text-xs tracking-[0.2em] uppercase text-white/50 mb-2">Name</label>
+            <input
+              id="cf-name"
+              name="name"
+              type="text"
+              required
+              class="w-full bg-black border border-white/20 px-4 py-3 text-sm text-white placeholder-white/30 focus:outline-none focus:border-white transition-colors"
+              placeholder="Your full name"
+            />
+          </div>
+
+          <div class="grid sm:grid-cols-2 gap-6">
+            <div>
+              <label for="cf-phone" class="block text-xs tracking-[0.2em] uppercase text-white/50 mb-2">Number</label>
+              <input
+                id="cf-phone"
+                name="phone"
+                type="tel"
+                required
+                class="w-full bg-black border border-white/20 px-4 py-3 text-sm text-white placeholder-white/30 focus:outline-none focus:border-white transition-colors"
+                placeholder="+91 00000 00000"
+              />
+            </div>
+            <div>
+              <label for="cf-email" class="block text-xs tracking-[0.2em] uppercase text-white/50 mb-2">Email</label>
+              <input
+                id="cf-email"
+                name="email"
+                type="email"
+                required
+                class="w-full bg-black border border-white/20 px-4 py-3 text-sm text-white placeholder-white/30 focus:outline-none focus:border-white transition-colors"
+                placeholder="you@example.com"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label for="cf-message" class="block text-xs tracking-[0.2em] uppercase text-white/50 mb-2">Message</label>
+            <textarea
+              id="cf-message"
+              name="message"
+              rows="5"
+              required
+              class="w-full bg-black border border-white/20 px-4 py-3 text-sm text-white placeholder-white/30 focus:outline-none focus:border-white transition-colors resize-none"
+              placeholder="Tell me a bit about your project..."
+            ></textarea>
+          </div>
+
+          <button
+            id="cf-submit"
+            type="submit"
+            class="mt-2 w-full sm:w-fit px-8 py-4 border border-white/20 bg-black text-white text-sm tracking-[0.15em] uppercase transition-colors hover:bg-white hover:text-black disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            Send Message
+          </button>
+
+          <p id="cf-status" class="text-sm min-h-[1.25rem]"></p>
+        </form>
+      </div>
+    </div>
+
+    <!-- footer strip — this section doubles as the site footer -->
+    <div class="mt-20 md:mt-28 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/40">
+      <p>© {new Date().getFullYear()} Mohammed Ashiq KT. All rights reserved.</p>
+      <div class="flex items-center gap-6">
+        <a href="#" class="hover:text-white transition-colors">Home</a>
+        <a href="#contact" class="hover:text-white transition-colors">Contact</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const form = document.getElementById('contact-form');
+  const submitBtn = document.getElementById('cf-submit');
+  const status = document.getElementById('cf-status');
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!(form instanceof HTMLFormElement)) return;
+
+    submitBtn?.setAttribute('disabled', 'true');
+    if (status) {
+      status.textContent = 'Sending...';
+      status.style.color = 'rgba(255,255,255,0.5)';
+    }
+
+    const formData = new FormData(form);
+    const payload = Object.fromEntries(formData.entries());
+
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const result = await res.json();
+
+      if (result.success) {
+        if (status) {
+          status.textContent = "Message sent — I'll get back to you soon.";
+          status.style.color = '#e5e5e5';
+        }
+        form.reset();
+      } else {
+        if (status) {
+          status.textContent = result.message || 'Something went wrong. Please try again.';
+          status.style.color = '#ff6b6b';
+        }
+      }
+    } catch (err) {
+      if (status) {
+        status.textContent = 'Network error — please try again.';
+        status.style.color = '#ff6b6b';
+      }
+    } finally {
+      submitBtn?.removeAttribute('disabled');
+    }
+  });
+</script>
