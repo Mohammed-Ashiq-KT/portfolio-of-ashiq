@@ -1,8 +1,9 @@
 ---
 // Testimonials — sharp-edged staggered carousel, matches Services section styling
-// Fixed: centering math (now correctly puts the middle item at position 0)
+// Fixed: centering math (middle item sits at position 0)
+// Fixed: mobile text cut-off + empty space (card height auto-fits the tallest review)
 // Active card uses a lighter black variant instead of white
-// Added: avatar photo, star rating, name, role
+// Includes: avatar photo, star rating, name, role
 
 interface Testimonial {
   testimonial: string;
@@ -53,7 +54,7 @@ const testimonials: Testimonial[] = [
       </p>
     </div>
 
-    <div id="testimonial-stage" class="relative w-full overflow-hidden" style="height: 600px;">
+    <div id="testimonial-stage" class="relative w-full overflow-hidden" style="height: 560px;">
       <div id="testimonial-cards" class="absolute inset-0"></div>
 
       <div class="absolute bottom-4 left-1/2 flex -translate-x-1/2 gap-2 z-20">
@@ -78,12 +79,20 @@ const testimonials: Testimonial[] = [
 
 <script define:vars={{ testimonials }}>
   const SQRT_5000 = Math.sqrt(5000);
+  const outerStage = document.getElementById('testimonial-stage');
   const stage = document.getElementById('testimonial-cards');
   const prevBtn = document.getElementById('testimonial-prev');
   const nextBtn = document.getElementById('testimonial-next');
 
+  // Card width is fixed; height is measured from the tallest card's content,
+  // so there is never clipped text and never a big empty gap at the bottom.
+  const getWidth = () => (window.matchMedia('(min-width: 640px)').matches ? 365 : 290);
+
+  // room above/below the cards for the stagger offsets, shadow and the nav buttons
+  const STAGE_EXTRA = 190;
+
   let list = testimonials.map((t, i) => ({ ...t, id: i }));
-  let cardSize = window.matchMedia('(min-width: 640px)').matches ? 365 : 290;
+  let cardW = getWidth();
 
   function starRow(rating) {
     let html = '';
@@ -106,15 +115,17 @@ const testimonials: Testimonial[] = [
       const isCenter = position === 0;
 
       const card = document.createElement('div');
-      card.className = 'absolute left-1/2 top-1/2 cursor-pointer border p-8 flex flex-col transition-all duration-500 ease-in-out';
-      card.style.width = cardSize + 'px';
-      card.style.height = cardSize + 'px';
+      card.className =
+        'absolute left-1/2 top-1/2 cursor-pointer border p-5 sm:p-8 flex flex-col transition-all duration-500 ease-in-out';
+      card.style.width = cardW + 'px';
+      card.style.height = 'auto'; // measured after all cards are added
       // active card: lighter black variant, not white
       card.style.backgroundColor = isCenter ? '#161616' : '#0a0a0a';
       card.style.color = '#e5e5e5';
       card.style.borderColor = isCenter ? '#ffffff33' : '#2a2a2a';
-      card.style.clipPath = 'polygon(50px 0%, calc(100% - 50px) 0%, 100% 50px, 100% 100%, calc(100% - 50px) 100%, 50px 100%, 0 100%, 0 0)';
-      card.style.transform = `translate(-50%, -50%) translateX(${(cardSize / 1.5) * position}px) translateY(${isCenter ? -65 : position % 2 ? 15 : -15}px) rotate(${isCenter ? 0 : position % 2 ? 2.5 : -2.5}deg)`;
+      card.style.clipPath =
+        'polygon(50px 0%, calc(100% - 50px) 0%, 100% 50px, 100% 100%, calc(100% - 50px) 100%, 50px 100%, 0 100%, 0 0)';
+      card.style.transform = `translate(-50%, -50%) translateX(${(cardW / 1.5) * position}px) translateY(${isCenter ? -65 : position % 2 ? 15 : -15}px) rotate(${isCenter ? 0 : position % 2 ? 2.5 : -2.5}deg)`;
       card.style.boxShadow = isCenter ? '0px 8px 0px 4px #2a2a2a' : '0px 0px 0px 0px transparent';
       card.style.zIndex = isCenter ? '10' : '0';
 
@@ -127,7 +138,7 @@ const testimonials: Testimonial[] = [
       diagonal.style.backgroundColor = isCenter ? '#ffffff33' : '#2a2a2a';
 
       const header = document.createElement('div');
-      header.className = 'flex items-center gap-3 mb-4';
+      header.className = 'flex items-center gap-3 mb-3 sm:mb-4';
       header.innerHTML = `
         <div class="relative w-12 h-12 overflow-hidden shrink-0" style="border:1px solid #2a2a2a">
           <img
@@ -145,11 +156,11 @@ const testimonials: Testimonial[] = [
       `;
 
       const stars = document.createElement('div');
-      stars.className = 'flex items-center mb-4';
+      stars.className = 'flex items-center mb-3 sm:mb-4';
       stars.innerHTML = starRow(item.rating);
 
       const quote = document.createElement('p');
-      quote.className = 'text-sm sm:text-base font-medium leading-snug';
+      quote.className = 'text-[13px] sm:text-base font-medium leading-snug';
       quote.textContent = `"${item.testimonial}"`;
 
       card.appendChild(diagonal);
@@ -160,6 +171,16 @@ const testimonials: Testimonial[] = [
 
       stage.appendChild(card);
     });
+
+    fitHeights();
+  }
+
+  // Make every card as tall as the tallest one, and size the stage to match
+  function fitHeights() {
+    const cards = Array.from(stage.children);
+    const tallest = Math.max(...cards.map((c) => c.offsetHeight)) + 8;
+    cards.forEach((c) => (c.style.height = tallest + 'px'));
+    outerStage.style.height = tallest + STAGE_EXTRA + 'px';
   }
 
   function handleMove(steps) {
@@ -184,12 +205,19 @@ const testimonials: Testimonial[] = [
   nextBtn.addEventListener('click', () => handleMove(1));
 
   window.addEventListener('resize', () => {
-    const next = window.matchMedia('(min-width: 640px)').matches ? 365 : 290;
-    if (next !== cardSize) {
-      cardSize = next;
+    const next = getWidth();
+    if (next !== cardW) {
+      cardW = next;
       render();
     }
   });
 
   render();
+
+  // web fonts can change text wrapping after first paint, so re-measure once they load
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(() => {
+      fitHeights();
+    });
+  }
 </script>
